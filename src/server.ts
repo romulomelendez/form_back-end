@@ -1,6 +1,6 @@
 import express, { json } from 'express'
 import { database } from './database/database'
-import { router } from './route'
+import { router } from './routes'
 
 const app = express()
 
