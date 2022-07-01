@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+
 class UserController {
 
   async findAll(req : Request, res : Response) {}

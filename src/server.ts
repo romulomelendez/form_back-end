@@ -7,9 +7,9 @@ const app = express()
 app.use(json())
 app.use(router)
 
-const port = process.env.PORT || 3000
+const port = 3000
 
 app.listen(port, async () => {
-  await database.sync()
+  await database.sync() 
   console.log(`App's running on port ${port}`)
 })
