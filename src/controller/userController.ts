@@ -5,22 +5,25 @@ class UserController {
 
   async findAll(req: Request, res: Response) {
     const users = await UserModel.findAll()
-    // console.log(users)
-    return res.status(204).json(users)
+    users
+    ? res.status(200).json(users)
+    : res.status(404).json(null)
   }
+
   async findOne(req: Request, res: Response) {
-    const { id } = req.params
-    console.log(id)
+    const { userId } = req.params
+    console.log(userId)
     const user = await UserModel.findOne({
       where: {
-        id: id
+        id: userId
       },
     })
-    res.status(200).json(user)
+    user
+    ? res.status(200).json(user)
+    : res.status(404).json(null)
   }
 
   async create(req: Request, res: Response) {
-
     const { name, email } = req.body
     const user = await UserModel.create({
       name,
@@ -29,9 +32,29 @@ class UserController {
     res.status(201).json(user)
   }
 
-  async update(req: Request, res: Response) {}
-
-  async destroy(req: Request, res: Response) {}
+  async update(req: Request, res: Response) {
+    const { userId } = req.params
+    const newUser =  await UserModel.update(req.body, {
+      where: {
+        id: userId
+      }
+    })
+    newUser
+    ? res.status(204).json(newUser)
+    : res.status(404).json(null)
+  }
+  
+  async destroy(req: Request, res: Response) {
+    const { userId } = req.params
+    const deletedUser = await UserModel.destroy({
+      where: {
+        id: userId
+      }
+    })
+    deletedUser
+    ? res.status(200).json(deletedUser)
+    : res.status(404).json(null)
+  }
 
 }
 
